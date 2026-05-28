@@ -2,8 +2,12 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "./src",
-    "types": ["node"]
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      "@etus/telemetry-schema": ["../schema/src/index.ts"],
+      "@etus/telemetry-shared": ["../shared/src/index.ts"]
+    }
   },
   "include": ["src/**/*"]
 }

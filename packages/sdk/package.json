@@ -1,31 +1,54 @@
 {
   "name": "@etus/telemetry-sdk",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": false,
   "description": "Embeddable SDK for Etus OSS web apps to send opt-in anonymous telemetry.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/etusdigital/etus-open-telemetry.git",
+    "directory": "packages/sdk"
+  },
+  "homepage": "https://github.com/etusdigital/etus-open-telemetry/tree/main/packages/sdk",
+  "bugs": "https://github.com/etusdigital/etus-open-telemetry/issues",
+  "keywords": [
+    "telemetry",
+    "opt-in",
+    "analytics",
+    "etus",
+    "self-hosted",
+    "privacy"
+  ],
   "type": "module",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     }
   },
   "files": ["dist", "README.md", "LICENSE"],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsup",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src",
-    "clean": "rm -rf dist .turbo"
-  },
-  "dependencies": {
-    "@etus/telemetry-schema": "workspace:*",
-    "@etus/telemetry-shared": "workspace:*"
+    "clean": "rm -rf dist .turbo",
+    "prepublishOnly": "tsup"
   },
   "devDependencies": {
-    "@types/node": "^20.14.0"
+    "@etus/telemetry-schema": "workspace:*",
+    "@etus/telemetry-shared": "workspace:*",
+    "@types/node": "^20.14.0",
+    "tsup": "^8.3.0",
+    "zod": "^3.23.0"
   },
   "engines": {
     "node": ">=20"

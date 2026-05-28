@@ -10,7 +10,8 @@
     "dev": "turbo run dev",
     "typecheck": "turbo run typecheck",
     "clean": "turbo run clean && rm -rf node_modules .turbo",
-    "dev:reset": "pkill -f next-server || true; pkill -f 'next/dist/bin/next' || true; pkill -f workerd || true; pkill -f miniflare || true; rm -rf packages/dashboard/.next packages/site/.next packages/dashboard/.turbo packages/site/.turbo"
+    "dev:reset": "pkill -f next-server || true; pkill -f 'next/dist/bin/next' || true; pkill -f workerd || true; pkill -f miniflare || true; rm -rf packages/dashboard/.next packages/site/.next packages/dashboard/.turbo packages/site/.turbo",
+    "publish:sdk": "pnpm --filter @etus/telemetry-sdk build && pnpm --filter @etus/telemetry-sdk publish --access public"
   },
   "packageManager": "pnpm@9.12.0",
   "engines": {
