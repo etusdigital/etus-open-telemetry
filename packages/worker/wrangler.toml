@@ -1,0 +1,55 @@
+# Wrangler config para o worker que hospeda 3 entry points:
+#   fetch handler   → ingestor HTTP   (POST /v1/events)
+#   queue handler   → persistor       (consome events-raw, escreve em D1)
+#   scheduled       → aggregator      (rollups diários + export R2)
+
+name = "etus-telemetry-worker"
+main = "src/index.ts"
+compatibility_date = "2026-05-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Logging tailable em produção
+[observability]
+enabled = true
+
+# --- D1 (storage transacional) ---
+# database_id é placeholder válido (UUID-shape) só para dev local.
+# Antes de deploy real, substituir pelo id retornado por `wrangler d1 create etus-telemetry`.
+[[d1_databases]]
+binding = "DB"
+database_name = "etus-telemetry"
+database_id = "00000000-0000-0000-0000-000000000001"
+migrations_dir = "migrations"
+
+# --- Queues ---
+[[queues.producers]]
+queue = "events-raw"
+binding = "QUEUE"
+
+[[queues.consumers]]
+queue = "events-raw"
+max_batch_size = 100
+max_batch_timeout = 5
+max_retries = 3
+dead_letter_queue = "events-dlq"
+
+# --- R2 (stats públicos + backups) ---
+[[r2_buckets]]
+binding = "R2_PUBLIC"
+bucket_name = "etus-telemetry-public"
+
+[[r2_buckets]]
+binding = "R2_BACKUPS"
+bucket_name = "etus-telemetry-backups"
+
+# --- Cron (aggregator diário 03:00 UTC) ---
+[triggers]
+crons = ["0 3 * * *"]
+
+# Vars não sensíveis (sensíveis vão em wrangler secret)
+[vars]
+SCHEMA_MIN_VERSION = "1.0.0"
+EVENT_RETENTION_DAYS = "365"
+# Dias sem evento até a instância ser marcada como `inactive`.
+# Aplicado pelo cron diário do aggregator. Pode ser ajustado sem deploy.
+INACTIVITY_THRESHOLD_DAYS = "7"

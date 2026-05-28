@@ -1,0 +1,11 @@
+# Site público — Cloudflare Pages. Único binding necessário: R2_PUBLIC,
+# de onde lemos os JSONs estilo Homebrew publicados pelo aggregator do worker.
+
+name = "etus-telemetry-site"
+compatibility_date = "2026-05-01"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".vercel/output/static"
+
+[[r2_buckets]]
+binding = "R2_PUBLIC"
+bucket_name = "etus-telemetry-public"

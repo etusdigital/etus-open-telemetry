@@ -1,0 +1,22 @@
+{
+  "name": "@etus/seeder",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Dev tool: posts varied heartbeats to a local worker so the dashboard has multi-line data to render.",
+  "type": "module",
+  "scripts": {
+    "seed": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@etus/telemetry-schema": "workspace:*",
+    "@etus/telemetry-shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "tsx": "^4.19.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

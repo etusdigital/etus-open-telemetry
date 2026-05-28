@@ -1,0 +1,21 @@
+{
+  "name": "@etus/dummy-app",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Example app that sends one heartbeat through @etus/telemetry-sdk for end-to-end validation.",
+  "type": "module",
+  "scripts": {
+    "send": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@etus/telemetry-sdk": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "tsx": "^4.19.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

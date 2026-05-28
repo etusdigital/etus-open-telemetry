@@ -1,0 +1,24 @@
+{
+  "name": "etus-open-telemetry",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Opt-in telemetry for Etus open source projects",
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "dev": "turbo run dev",
+    "typecheck": "turbo run typecheck",
+    "clean": "turbo run clean && rm -rf node_modules .turbo",
+    "dev:reset": "pkill -f next-server || true; pkill -f 'next/dist/bin/next' || true; pkill -f workerd || true; pkill -f miniflare || true; rm -rf packages/dashboard/.next packages/site/.next packages/dashboard/.turbo packages/site/.turbo"
+  },
+  "packageManager": "pnpm@9.12.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.1.0"
+  }
+}

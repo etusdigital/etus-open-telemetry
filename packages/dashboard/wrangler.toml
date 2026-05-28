@@ -1,0 +1,16 @@
+# Wrangler config para o dashboard rodando em Cloudflare Pages.
+# Em dev local, o setupDevPlatform() do next.config.mjs lê este arquivo
+# e expõe as bindings em `getRequestContext().env`.
+
+name = "etus-telemetry-dashboard"
+compatibility_date = "2026-05-01"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".vercel/output/static"
+
+# D1 — o MESMO database do worker. Em dev, o wrangler usa o mesmo
+# arquivo SQLite local (.wrangler/state/v3/d1) compartilhado entre os
+# dois packages.
+[[d1_databases]]
+binding = "DB"
+database_name = "etus-telemetry"
+database_id = "00000000-0000-0000-0000-000000000001"
