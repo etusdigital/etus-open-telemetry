@@ -13,4 +13,4 @@ pages_build_output_dir = ".vercel/output/static"
 [[d1_databases]]
 binding = "DB"
 database_name = "etus-telemetry"
-database_id = "00000000-0000-0000-0000-000000000001"
+database_id = "f7895604-d27e-4a15-b321-f3e6911c75cf"

@@ -86,12 +86,12 @@ app.post('/v1/events', async (c) => {
 });
 ```
 
-### 3. Cloudflare Queue `events-raw`
+### 3. Cloudflare Queue `telemetry-events-raw`
 
 - Producer: o worker `ingestor`.
 - Consumer: o mesmo worker (queue handler).
 - `max_batch_size`: 100. `max_batch_timeout`: 5s.
-- Dead-letter queue: `events-dlq` (após N retries — define no wrangler.toml).
+- Dead-letter queue: `telemetry-events-dlq` (após N retries — define no wrangler.toml).
 
 ### 4. Worker `persistor` (consumer da queue)
 

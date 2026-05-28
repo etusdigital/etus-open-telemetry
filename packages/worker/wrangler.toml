@@ -13,25 +13,26 @@ compatibility_flags = ["nodejs_compat"]
 enabled = true
 
 # --- D1 (storage transacional) ---
-# database_id é placeholder válido (UUID-shape) só para dev local.
-# Antes de deploy real, substituir pelo id retornado por `wrangler d1 create etus-telemetry`.
+# database_id do D1 real (de `wrangler d1 create etus-telemetry`).
+# Dev local usa `--persist-to ../../.wrangler/state`; ao mudar o id, o D1 local
+# fica vazio — rode migrate:local + seeder de novo se precisar de dados locais.
 [[d1_databases]]
 binding = "DB"
 database_name = "etus-telemetry"
-database_id = "00000000-0000-0000-0000-000000000001"
+database_id = "f7895604-d27e-4a15-b321-f3e6911c75cf"
 migrations_dir = "migrations"
 
 # --- Queues ---
 [[queues.producers]]
-queue = "events-raw"
+queue = "telemetry-events-raw"
 binding = "QUEUE"
 
 [[queues.consumers]]
-queue = "events-raw"
+queue = "telemetry-events-raw"
 max_batch_size = 100
 max_batch_timeout = 5
 max_retries = 3
-dead_letter_queue = "events-dlq"
+dead_letter_queue = "telemetry-events-dlq"
 
 # --- R2 (stats públicos + backups) ---
 [[r2_buckets]]

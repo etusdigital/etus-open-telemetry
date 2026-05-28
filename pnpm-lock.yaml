@@ -17,6 +17,9 @@ importers:
       vitest:
         specifier: ^2.1.0
         version: 2.1.9(@edge-runtime/vm@3.2.0)(@types/node@20.19.41)
+      wrangler:
+        specifier: ^3.80.0
+        version: 3.114.17(@cloudflare/workers-types@4.20260527.1)
 
   examples/dummy-app:
     dependencies:
