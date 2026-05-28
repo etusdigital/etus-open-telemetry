@@ -1,0 +1,59 @@
+name: Publish SDK
+
+# Publica @etus/telemetry-sdk no npm quando há push na main.
+# Guarda de versão: só publica se a versão do package.json ainda não existe
+# no npm. Fluxo: bump da versão em packages/sdk/package.json → merge na main
+# → publica. Push sem bump → builda/testa mas pula o publish.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/sdk/**'
+      - 'packages/schema/**'
+      - 'packages/shared/**'
+      - '.github/workflows/publish-sdk.yml'
+  workflow_dispatch: {} # permite disparo manual pela aba Actions
+
+concurrency:
+  group: publish-sdk
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # necessário para provenance do npm
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4 # lê packageManager do package.json
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck + test (gate)
+        run: pnpm turbo run typecheck test --filter @etus/telemetry-sdk
+
+      - name: Build SDK
+        run: pnpm --filter @etus/telemetry-sdk build
+
+      - name: Publish if version is new
+        working-directory: packages/sdk
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          NAME=$(node -p "require('./package.json').name")
+          if npm view "$NAME@$VERSION" version >/dev/null 2>&1; then
+            echo "::notice::$NAME@$VERSION já está no npm — pulando publish."
+          else
+            echo "Publicando $NAME@$VERSION"
+            npm publish --access public --provenance
+          fi

@@ -91,6 +91,22 @@ Sem Docker. D1 e Queues rodam locais via Miniflare.
 
 > **Erros tipo `ENOENT .next/server/app/page.js` ou `ChunkLoadError`?** São cache stale do Next + processos órfãos de dev servers anteriores. Rode `pnpm dev:reset` e suba de novo. Causa: `next dev` deixa processos filhos (`next-server`) órfãos quando o wrapper é morto; múltiplos escrevendo no mesmo `.next` corrompem o build.
 
+## Publicação no npm (`@etus/telemetry-sdk`)
+
+Só o SDK é publicado (worker/dashboard/site são deployados na Cloudflare). A publicação é **automática via GitHub Actions** no push pra `main` — workflow [`.github/workflows/publish-sdk.yml`](.github/workflows/publish-sdk.yml).
+
+**Guarda de versão:** o workflow só publica se a versão em `packages/sdk/package.json` ainda **não existe** no npm. Então o fluxo de release é:
+
+1. Bump da versão em `packages/sdk/package.json` (ex: `0.1.0` → `0.1.1`)
+2. PR + merge na `main`
+3. O Action builda, roda typecheck+test, e publica `@etus/telemetry-sdk@<nova-versão>`
+
+Push na `main` **sem** bump → builda e testa, mas pula o publish (versão já existe). Sem republicação acidental.
+
+**Setup único (uma vez):** criar um **Automation token** no npm (npmjs.com → Access Tokens → Generate → Automation) e adicioná-lo como secret do repositório em **Settings → Secrets and variables → Actions → New repository secret**, com nome `NPM_TOKEN`.
+
+Publicação manual local (alternativa): `pnpm publish:sdk`.
+
 ## Status
 
 🚧 **Pré-MVP — em definição.** Pesquisa, schema e stack consolidados. Próximo passo:
