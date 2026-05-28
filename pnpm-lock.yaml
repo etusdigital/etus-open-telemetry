@@ -104,12 +104,6 @@ importers:
 
   packages/sdk:
     devDependencies:
-      '@etus/telemetry-schema':
-        specifier: workspace:*
-        version: link:../schema
-      '@etus/telemetry-shared':
-        specifier: workspace:*
-        version: link:../shared
       '@types/node':
         specifier: ^20.14.0
         version: 20.19.41
