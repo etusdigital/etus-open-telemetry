@@ -48,7 +48,7 @@ export function SingleLineChart({
   const fmt = pickFormatter(format);
   if (data.length === 0) {
     return (
-      <div className="flex h-48 items-center justify-center text-sm text-zinc-500">
+      <div className="flex h-48 items-center justify-center text-sm text-slate-500">
         Sem dados na janela.
       </div>
     );
@@ -110,7 +110,7 @@ export function MultiLineChart({
   const fmt = pickFormatter(format);
   if (data.length === 0 || seriesNames.length === 0) {
     return (
-      <div className="flex h-48 items-center justify-center text-sm text-zinc-500">
+      <div className="flex h-48 items-center justify-center text-sm text-slate-500">
         Sem dados na janela.
       </div>
     );

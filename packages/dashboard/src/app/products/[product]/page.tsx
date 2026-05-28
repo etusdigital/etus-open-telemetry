@@ -58,16 +58,16 @@ export default async function ProductDetailPage({
     <main className="mx-auto max-w-6xl px-6 py-10">
       <Link
         href={`/?window=${window}`}
-        className="text-xs text-zinc-500 hover:underline"
+        className="text-xs text-slate-500 hover:underline"
       >
         ← overview
       </Link>
       <header className="mt-2 mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-50">
             {product}
           </h1>
-          <p className="text-sm text-zinc-500 dark:text-zinc-500">
+          <p className="text-sm text-slate-500 dark:text-slate-500">
             Janela ativa: {window} · Agrupamento: {BUCKET_LABEL_PT[bucket]} UTC ·
             Atualização: 60s
           </p>
@@ -94,7 +94,7 @@ export default async function ProductDetailPage({
         <TimelineTab product={product} window={window} />
       ) : null}
 
-      <footer className="mt-12 text-xs text-zinc-500">
+      <footer className="mt-12 text-xs text-slate-500">
         Dados agregados a partir de eventos brutos · linhas brutas nunca expostas
       </footer>
     </main>
@@ -130,7 +130,7 @@ async function OverviewTab({
       <Card title="Status atual" hint="threshold 7d sem eventos">
         <StatusSplit active={status.active} inactive={status.inactive} />
         {cohort.oldest_install_at !== null ? (
-          <p className="mt-3 text-xs text-zinc-500">
+          <p className="mt-3 text-xs text-slate-500">
             instância mais antiga (relógio do operador):{' '}
             <time
               dateTime={new Date(cohort.oldest_install_at).toISOString()}

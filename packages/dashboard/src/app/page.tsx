@@ -48,10 +48,10 @@ export default async function DashboardPage({
     <main className="mx-auto max-w-6xl px-6 py-10">
       <header className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-            Etus Open Telemetry
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-50">
+            Visão geral
           </h1>
-          <p className="text-sm text-zinc-500 dark:text-zinc-500">
+          <p className="text-sm text-slate-500 dark:text-slate-500">
             Janela ativa: {window}. Atualização: a cada 60s.
           </p>
         </div>
@@ -129,7 +129,7 @@ export default async function DashboardPage({
         </div>
       </div>
 
-      <footer className="mt-12 text-xs text-zinc-500">
+      <footer className="mt-12 text-xs text-slate-500">
         opt-in telemetry · agregados · linhas brutas nunca expostas
       </footer>
     </main>

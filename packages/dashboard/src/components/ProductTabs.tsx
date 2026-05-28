@@ -37,7 +37,7 @@ export function ProductTabs({
   return (
     <nav
       aria-label="Seções do produto"
-      className="mb-8 flex gap-1 border-b border-zinc-200 dark:border-zinc-800"
+      className="mb-8 flex gap-1 border-b border-slate-200 dark:border-slate-800"
     >
       {PRODUCT_TABS.map((t) => {
         const active = t === current;
@@ -48,8 +48,8 @@ export function ProductTabs({
             aria-current={active ? 'page' : undefined}
             className={
               active
-                ? '-mb-px border-b-2 border-zinc-900 px-4 py-2 text-sm font-semibold text-zinc-900 dark:border-zinc-50 dark:text-zinc-50'
-                : '-mb-px border-b-2 border-transparent px-4 py-2 text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-50'
+                ? '-mb-px border-b-2 border-slate-900 px-4 py-2 text-sm font-semibold text-slate-900 dark:border-slate-50 dark:text-slate-50'
+                : '-mb-px border-b-2 border-transparent px-4 py-2 text-sm text-slate-500 hover:text-slate-900 dark:hover:text-slate-50'
             }
           >
             {LABELS[t]}

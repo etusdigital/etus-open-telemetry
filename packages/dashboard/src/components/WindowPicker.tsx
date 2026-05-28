@@ -22,7 +22,7 @@ export function WindowPicker({
   return (
     <nav
       aria-label="Janela de tempo"
-      className="inline-flex rounded-md border border-zinc-200 bg-white p-1 text-xs dark:border-zinc-800 dark:bg-zinc-950"
+      className="inline-flex rounded-md border border-slate-200 bg-white p-1 text-xs dark:border-slate-700 dark:bg-slate-900"
     >
       {WINDOW_OPTIONS.map((w) => {
         const active = w === current;
@@ -33,8 +33,8 @@ export function WindowPicker({
             aria-current={active ? 'page' : undefined}
             className={
               active
-                ? 'rounded bg-zinc-900 px-3 py-1 font-semibold text-zinc-50 dark:bg-zinc-50 dark:text-zinc-900'
-                : 'rounded px-3 py-1 text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-900'
+                ? 'rounded bg-slate-900 px-3 py-1 font-semibold text-slate-50 dark:bg-slate-50 dark:text-slate-900'
+                : 'rounded px-3 py-1 text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-900'
             }
           >
             {LABELS[w]}
