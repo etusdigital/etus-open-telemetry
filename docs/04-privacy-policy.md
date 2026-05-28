@@ -397,7 +397,7 @@ Any change that affects collected fields:
 
 - [ ] Endereço de e-mail definitivo (`privacy@etus.com.br` é placeholder)
 - [x] URL final do endpoint: `otw.etus.dev`
-- [ ] URL final do site público (onde esta política viverá)
+- [x] URL final do site público: `telemetry.etus.dev` (esta política vive em `telemetry.etus.dev/privacy`)
 - [x] URL do repositório GitHub do projeto: `github.com/etusdigital/etus-open-telemetry`
 - [ ] Revisão jurídica — recomendado antes de produção, especialmente:
   - Cláusula de processador (Cloudflare) — termos do DPA da CF

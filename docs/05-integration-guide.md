@@ -222,7 +222,7 @@ Endpoints sugeridos:
 
 ### 3.6 Documentar no README do seu produto
 
-Inclua uma seção "Telemetria" no README do `etus-foo`, com link para `https://etus.com.br/telemetry/privacy` _(URL placeholder)_ e exemplos dos mecanismos de ativação/desativação.
+Inclua uma seção "Telemetria" no README do `etus-foo`, com link para `https://telemetry.etus.dev/privacy` e exemplos dos mecanismos de ativação/desativação.
 
 ---
 
@@ -449,7 +449,7 @@ Cada OSS da Etus que integra telemetria precisa ter:
 ### 7.1 Seção `## Telemetry` no README do produto
 
 Conteúdo mínimo:
-- 1 parágrafo: "esse produto coleta telemetria opt-in. Ver `https://etus.com.br/telemetry/privacy`."
+- 1 parágrafo: "esse produto coleta telemetria opt-in. Ver `https://telemetry.etus.dev/privacy`."
 - Como ativar (env var + config exemplo)
 - Como desativar
 - Como inspecionar
