@@ -231,11 +231,11 @@ Sem Docker. Sem Postgres. Sem fila externa.
 
 - `pnpm wrangler deploy` no package `worker` → publica os 3 workers + bindings (D1, Queue, R2) num único deployment.
 - `pnpm wrangler pages deploy` no package `dashboard` e `site`.
-- DNS: `telemetry.etus.com.br` aponta para o ingestor; `stats.etus-telemetry.com.br` ou similar para o site público.
+- DNS: `otw.etus.dev` aponta para o ingestor/worker (custom domain). Domínio do site público (Pages) a definir.
 
 ## Riscos & Decisões em aberto
 
-- **Domínio**: `telemetry.etus.com.br` para o ingestor. `etus-telemetry.com.br` ou subdomínio para site público? Decidir antes de produção.
+- **Domínio**: `otw.etus.dev` para o ingestor/worker (definido). Domínio do site público (Pages) ainda a definir.
 - **Auth do dashboard**: Cloudflare Access vs NextAuth. Cloudflare Access é mais simples; depende do plano da conta.
 - **Framework do site público**: Next.js (mesmo do dashboard) ou Astro? Próxima sessão.
 - **Stack do SDK ainda condicionada**: se OSS da Etus não for Node-friendly, ADR-0001 #4 revisitado.

@@ -41,10 +41,11 @@ export default async function StatsIndex() {
       <p className="mt-2 text-xs text-slate-500">
         Consumível por máquina via API pública:{' '}
         <a
-          href="/v1/public/stats"
+          href="https://otw.etus.dev/v1/public/stats"
           className="font-mono underline hover:text-slate-900 dark:hover:text-slate-50"
+          rel="noreferrer"
         >
-          GET /v1/public/stats
+          GET otw.etus.dev/v1/public/stats
         </a>
       </p>
 

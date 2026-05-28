@@ -4,7 +4,7 @@ Endpoint HTTP legível por máquina com os agregados de adoção dos OSS da Etus
 
 > Serve exatamente os mesmos agregados que o aggregator publica em R2 diariamente. **Nunca** expõe linhas brutas, `instance.id`, nem qualquer dado individual de instância — só contagens por dimensão.
 
-- **Base URL (prod)**: `https://telemetry.etus.com.br` _(domínio a confirmar)_
+- **Base URL (prod)**: `https://otw.etus.dev`
 - **Base URL (dev)**: `http://localhost:8787`
 - **Atualização**: diária, ~03:00 UTC (cron do aggregator)
 - **Cache**: `Cache-Control: public, max-age=3600`
@@ -78,14 +78,14 @@ Agregados de um produto, em janelas de 30/90/365 dias.
 
 ```sh
 # listar produtos
-curl https://telemetry.etus.com.br/v1/public/stats
+curl https://otw.etus.dev/v1/public/stats
 
 # stats de um produto
-curl https://telemetry.etus.com.br/v1/public/stats/etus-foo
+curl https://otw.etus.dev/v1/public/stats/etus-foo
 ```
 
 ```ts
-const res = await fetch('https://telemetry.etus.com.br/v1/public/stats/etus-foo');
+const res = await fetch('https://otw.etus.dev/v1/public/stats/etus-foo');
 const stats = await res.json();
 console.log(stats['30d'].by_version);
 ```

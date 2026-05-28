@@ -3,7 +3,7 @@
 - **Versão**: 1.0.0
 - **Vigência**: a partir de 2026-05-27
 - **Próxima revisão**: ao mudar o schema (ADR-0001 prevê bump em qualquer alteração de campo coletado)
-- **Endpoint de coleta**: `https://telemetry.etus.com.br/v1/events`
+- **Endpoint de coleta**: `https://otw.etus.dev/v1/events`
 
 > Este documento é o **contrato público** com operadores que rodam software open source da Etus. Ele espelha 1:1 o schema técnico em [`02-event-schema.md`](02-event-schema.md). Toda mudança de campo coletado é **breaking change**, exige bump de `schema_version` e atualização desta política.
 
@@ -396,9 +396,9 @@ Any change that affects collected fields:
 > Esta seção é **interna** e não vai para o site público — vai ser removida ao publicar.
 
 - [ ] Endereço de e-mail definitivo (`privacy@etus.com.br` é placeholder)
-- [ ] URL final do endpoint (`telemetry.etus.com.br` confirmado?)
+- [x] URL final do endpoint: `otw.etus.dev`
 - [ ] URL final do site público (onde esta política viverá)
-- [ ] URL do repositório GitHub do projeto
+- [x] URL do repositório GitHub do projeto: `github.com/etusdigital/etus-open-telemetry`
 - [ ] Revisão jurídica — recomendado antes de produção, especialmente:
   - Cláusula de processador (Cloudflare) — termos do DPA da CF
   - Base legal mencionada (LGPD legítimo interesse vs consentimento — defendemos consentimento via opt-in)

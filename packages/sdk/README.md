@@ -41,7 +41,7 @@ await telemetry.lifecycle({
 **Não há endpoint default.** O destino vem de `init({ endpoint })` ou da env var `ETUS_TELEMETRY_ENDPOINT`. Sem endpoint, o SDK não envia e `init()` retorna `{ enabled: false, reason: 'no_endpoint' }`.
 
 ```sh
-export ETUS_TELEMETRY_ENDPOINT=https://telemetry.etus.com.br
+export ETUS_TELEMETRY_ENDPOINT=https://otw.etus.dev
 ```
 
 ## Princípios
