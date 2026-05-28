@@ -1,6 +1,6 @@
 {
   "name": "@etus/telemetry-sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "description": "Embeddable SDK for Etus OSS web apps to send opt-in anonymous telemetry.",
   "license": "Apache-2.0",
