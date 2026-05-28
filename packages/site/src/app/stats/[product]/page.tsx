@@ -58,7 +58,7 @@ export default async function ProductStatsPage({
           return (
             <section
               key={range}
-              className="rounded-lg border border-slate-200 p-6 dark:border-slate-800"
+              className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900"
             >
               <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
                 Últimos {range} — por versão

@@ -58,14 +58,16 @@ export default async function StatsIndex() {
           materializa nos primeiros 03:00 UTC após receber heartbeats.
         </p>
       ) : (
-        <ul className="mt-8 divide-y divide-slate-200 dark:divide-slate-800">
+        <ul className="mt-8 grid gap-3">
           {products.map((p) => (
-            <li key={p.name} className="py-4">
+            <li key={p.name}>
               <Link
                 href={`/stats/${p.name}`}
-                className="flex items-baseline justify-between hover:underline"
+                className="flex items-baseline justify-between rounded-lg border border-slate-200 bg-white px-5 py-4 shadow-sm transition-colors hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700"
               >
-                <span className="text-lg font-semibold">{p.name}</span>
+                <span className="text-lg font-semibold text-slate-900 dark:text-slate-50">
+                  {p.name}
+                </span>
                 <span className="text-xs text-slate-500">
                   atualizado em {new Date(p.generated_at).toLocaleString('pt-BR')}
                 </span>
