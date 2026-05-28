@@ -9,6 +9,10 @@ export const metadata: Metadata = {
   title: 'Etus Open Telemetry',
   description:
     'Opt-in telemetry for Etus open source projects — what we collect, why, and how to control it.',
+  icons: {
+    icon: '/etus-logo.png',
+    apple: '/etus-logo.png',
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
