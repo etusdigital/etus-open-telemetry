@@ -4,6 +4,7 @@ build/
 .next/
 .turbo/
 .wrangler/
+.vercel/
 coverage/
 *.log
 .DS_Store
