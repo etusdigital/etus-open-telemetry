@@ -13,10 +13,12 @@ npm install @etus/telemetry-sdk
 
 ## Uso
 
+> **Requer `ETUS_TELEMETRY_ENDPOINT`** (ou `init({ endpoint })`). Sem ele, todos os métodos são no-op silencioso — ver [Endpoint](#endpoint-obrigatório).
+
 ```ts
 import { telemetry } from '@etus/telemetry-sdk';
 
-// 1. no boot (uma vez)
+// 1. no boot (uma vez) — requer ETUS_TELEMETRY_ENDPOINT, senão vira no-op
 const consent = telemetry.init({
   product: 'etus-foo',
   version: '2.4.1',
@@ -36,13 +38,21 @@ await telemetry.lifecycle({
 });
 ```
 
-## Endpoint
+## Endpoint (obrigatório)
 
-**Não há endpoint default.** O destino vem de `init({ endpoint })` ou da env var `ETUS_TELEMETRY_ENDPOINT`. Sem endpoint, o SDK não envia e `init()` retorna `{ enabled: false, reason: 'no_endpoint' }`.
+**Não há endpoint default.** O destino vem de `init({ endpoint })` ou da env var `ETUS_TELEMETRY_ENDPOINT` (precedência: `init` > env var).
 
 ```sh
 export ETUS_TELEMETRY_ENDPOINT=https://otw.etus.dev
 ```
+
+Sem endpoint configurado, o SDK opera em **no-op silencioso**:
+
+- `init()` retorna `{ enabled: false, reason: 'no_endpoint' }`.
+- `heartbeat()` e `lifecycle()` não enviam nada e retornam `null`.
+- `inspect()` continua funcionando (mostra o payload que *seria* enviado).
+
+Não é erro — é o comportamento esperado quando o operador não definiu para onde enviar.
 
 ## Princípios
 
