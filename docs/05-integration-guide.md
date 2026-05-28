@@ -144,6 +144,8 @@ Valores aceitos:
 - **Desligar**: `ETUS_TELEMETRY` ∈ `{ disabled, 0, false }`
 - **DO_NOT_TRACK**: `{ 1, true }` desliga
 
+> **Endpoint é obrigatório e não tem default.** Mesmo com consentimento, o SDK só envia se um endpoint estiver resolvido — de `init({ endpoint })` ou da env var **`ETUS_TELEMETRY_ENDPOINT`** (não há valor embutido). Sem endpoint, `init()` retorna `{ enabled: false, reason: 'no_endpoint' }` e `heartbeat`/`lifecycle` viram no-op. Em produção, o operador (ou o deploy do seu produto) define `ETUS_TELEMETRY_ENDPOINT` apontando para o ingestor da Etus.
+
 ### 3.2 Os 3 mecanismos de ativação
 
 Seu produto deve suportar **pelo menos os dois primeiros**.
@@ -671,7 +673,7 @@ from pathlib import Path
 
 PRODUCT = "etus-foo"
 VERSION = "2.4.1"
-ENDPOINT = os.environ.get("ETUS_ENDPOINT", "https://telemetry.etus.com.br")
+ENDPOINT = os.environ.get("ETUS_TELEMETRY_ENDPOINT")  # sem default; vazio = não envia
 STATE = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config")) / "etus-telemetry" / f"{PRODUCT}.json"
 
 CI_SIGNALS = ("CI", "CONTINUOUS_INTEGRATION", "GITHUB_ACTIONS", "GITLAB_CI",
@@ -707,8 +709,8 @@ def instance_id(st: dict) -> str:
     return b32(hashlib.sha256(raw).digest()[:16])
 
 def send_heartbeat(opted_in: bool | None = None) -> None:
-    if not consent_enabled(opted_in):
-        return
+    if not consent_enabled(opted_in) or not ENDPOINT:
+        return  # sem consentimento ou sem endpoint → não envia
     st = load_or_init_state()
     payload = {
         "schema_version": "1.0.0",
@@ -808,9 +810,9 @@ func SendHeartbeat(version string, optedIn bool, stats map[string]any) {
 		"features":       stats["features"],
 	}
 	body, _ := json.Marshal(payload)
-	endpoint := os.Getenv("ETUS_ENDPOINT")
+	endpoint := os.Getenv("ETUS_TELEMETRY_ENDPOINT")
 	if endpoint == "" {
-		endpoint = "https://telemetry.etus.com.br"
+		return // sem endpoint configurado → não envia (sem default)
 	}
 	client := http.Client{Timeout: 5 * time.Second}
 	resp, err := client.Post(endpoint+"/v1/events", "application/json", bytes.NewReader(body))

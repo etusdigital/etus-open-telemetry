@@ -64,7 +64,7 @@ Sem mudança em relação ao desenho anterior (independente da stack do backend)
 - Lê config (env vars + arquivo persistido).
 - Gera `instance.id = SHA-256(seed || install_uuid || product_name)` na primeira execução com opt-in dado.
 - Heartbeat diário com jitter, retry exponencial, falha silenciosa.
-- POST para `https://telemetry.etus.com.br/v1/events` com `Content-Type: application/json`.
+- POST para `${endpoint}/v1/events` com `Content-Type: application/json`. O endpoint vem de `ETUS_TELEMETRY_ENDPOINT` (ou `init({ endpoint })`) — **sem default**; sem endpoint o SDK não envia.
 
 ⚠️ Se a stack dos OSS da Etus não for Node-friendly, esta decisão precisa ser revisitada (ADR-0001 decisão 4).
 

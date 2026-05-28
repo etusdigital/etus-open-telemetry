@@ -36,9 +36,17 @@ await telemetry.lifecycle({
 });
 ```
 
+## Endpoint
+
+**Não há endpoint default.** O destino vem de `init({ endpoint })` ou da env var `ETUS_TELEMETRY_ENDPOINT`. Sem endpoint, o SDK não envia e `init()` retorna `{ enabled: false, reason: 'no_endpoint' }`.
+
+```sh
+export ETUS_TELEMETRY_ENDPOINT=https://telemetry.etus.com.br
+```
+
 ## Princípios
 
-- **Desligado por padrão.** Só envia com opt-in explícito (`ETUS_TELEMETRY=enabled`, `optedIn: true`, etc.). Respeita `DO_NOT_TRACK=1` e desliga em CI.
+- **Desligado por padrão.** Só envia com opt-in explícito (`ETUS_TELEMETRY=enabled`, `optedIn: true`, etc.) **e** endpoint configurado. Respeita `DO_NOT_TRACK=1` e desliga em CI.
 - **Falha silenciosa.** Nunca lança exceção que afete o app hospedeiro. Retry exponencial e desiste.
 - **Anônimo.** `instance.id` é hash+seed local; a seed nunca trafega.
 
