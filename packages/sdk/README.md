@@ -1,6 +1,6 @@
 # @etus/telemetry-sdk
 
-SDK leve embarcado nas aplicações open source da Etus para enviar telemetria **opt-in** anônima sobre a instância self-hosted.
+SDK leve embarcado nas aplicações open source da ETUS para enviar telemetria **opt-in** anônima sobre a instância self-hosted.
 
 > Pacote **self-contained**: zero dependências de runtime além dos built-ins do Node (`crypto`, `fs`, `os`, `path`). ESM + CJS + tipos. Node ≥ 20.
 

@@ -1,11 +1,11 @@
-# Pesquisa: Telemetria para Projetos Open Source da Etus
+# Pesquisa: Telemetria para Projetos Open Source da ETUS
 
 > Esta é a versão de referência da pesquisa que originou o projeto.
 > Documento vivo — atualizar quando a direção mudar.
 
 ## Contexto
 
-A Etus quer construir uma aplicação para registrar o uso de suas soluções open source — com base em consentimento explícito dos usuários. Antes de definir arquitetura, código ou stack, esta etapa mapeou o estado da arte: o que outras ferramentas/projetos OSS já fazem, quais funcionalidades aparecem repetidamente, e quais armadilhas evitar (especialmente em torno de privacidade e LGPD/GDPR).
+A ETUS quer construir uma aplicação para registrar o uso de suas soluções open source — com base em consentimento explícito dos usuários. Antes de definir arquitetura, código ou stack, esta etapa mapeou o estado da arte: o que outras ferramentas/projetos OSS já fazem, quais funcionalidades aparecem repetidamente, e quais armadilhas evitar (especialmente em torno de privacidade e LGPD/GDPR).
 
 ## 1. Panorama: Dois Mundos de Telemetria
 
@@ -15,7 +15,7 @@ Foco: traces, métricas e logs **de dentro de uma aplicação** rodando em produ
 - **OpenTelemetry (OTel)** — padrão CNCF, vendor-neutral, SDKs em 12+ linguagens.
 - **Backends**: Jaeger, SigNoz, Uptrace, Grafana Alloy, Logz.io.
 
-**Decisão Etus**: este projeto **não** é sobre OTel. O nome `etus-open-telemetry` significa "telemetria dos OSS da Etus".
+**Decisão ETUS**: este projeto **não** é sobre OTel. O nome `etus-open-telemetry` significa "telemetria dos OSS da ETUS".
 
 ### 1.2. Telemetria de Adoção / Uso de OSS (o foco real deste projeto)
 
@@ -65,14 +65,14 @@ Foco: traces, métricas e logs **de dentro de uma aplicação** rodando em produ
 - Retenção (DAU/WAU/MAU)
 - API pública opcional (estilo Homebrew)
 
-## 3. Direção Escolhida para o Projeto Etus
+## 3. Direção Escolhida para o Projeto ETUS
 
-- **Alvo de instrumentação**: aplicações web auto-hospedáveis da Etus (modelo Plausible/Umami/Sentry — cada instância self-hosted "telefona para casa").
+- **Alvo de instrumentação**: aplicações web auto-hospedáveis da ETUS (modelo Plausible/Umami/Sentry — cada instância self-hosted "telefona para casa").
 - **Stack**: construir do zero — SDK embed, ingestor de eventos, storage próprio, dashboard.
 - **Consentimento**: **opt-in explícito** (alinhado a LGPD/GDPR).
 
 ### Componentes do sistema
-1. **SDK embarcado** — biblioteca leve incluída em cada OSS web app da Etus. Lê config (opt-in/off), gera ID anônimo da instância, monta payload, envia em background.
+1. **SDK embarcado** — biblioteca leve incluída em cada OSS web app da ETUS. Lê config (opt-in/off), gera ID anônimo da instância, monta payload, envia em background.
 2. **Endpoint de ingestão** — API HTTPS que recebe payloads, valida schema, escreve em storage.
 3. **Storage** — banco event-oriented (proposta MVP: Postgres + tabela append-only; eventual migração para ClickHouse).
 4. **Dashboard** — painel interno + API pública estilo Homebrew.

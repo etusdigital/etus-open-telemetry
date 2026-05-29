@@ -8,9 +8,9 @@
 
 Cinco decisões fundacionais ficam firmes a partir deste ADR. Mudá-las exige novo ADR que substitua este.
 
-### 1. Escopo: instrumentação de OSS web auto-hospedáveis da Etus
+### 1. Escopo: instrumentação de OSS web auto-hospedáveis da ETUS
 
-O sistema coleta telemetria sobre **instâncias** dos OSS da Etus que terceiros hospedam, não sobre os usuários finais dessas instâncias.
+O sistema coleta telemetria sobre **instâncias** dos OSS da ETUS que terceiros hospedam, não sobre os usuários finais dessas instâncias.
 
 **Implicação**: nada coletado pode permitir identificar pessoas físicas que usem as instâncias. O "sujeito" da telemetria é a instância, não a pessoa.
 
@@ -20,7 +20,7 @@ O sistema coleta telemetria sobre **instâncias** dos OSS da Etus que terceiros 
 
 Telemetria desligada por padrão. O operador da instância habilita ativamente via env var ou config.
 
-**Por quê**: jurisprudência LGPD/GDPR pede consentimento ativo; opt-out (modelo GitHub CLI 2026) está sob escrutínio na UE; é incoerente com o posicionamento de privacy-first que a Etus quer projetar.
+**Por quê**: jurisprudência LGPD/GDPR pede consentimento ativo; opt-out (modelo GitHub CLI 2026) está sob escrutínio na UE; é incoerente com o posicionamento de privacy-first que a ETUS quer projetar.
 
 **Trade-off aceito**: volume de dados menor do que opt-out daria. Compensa pelo posicionamento.
 
@@ -51,15 +51,15 @@ Não usar PostHog/Plausible/Umami como backend. Construir os 4 componentes próp
 - TS no schema → tipos compartilhados entre SDK e ingestor sem regenerar nada.
 - Postgres aguenta dezenas de milhões de eventos; complicar com ClickHouse no MVP é prematuro.
 
-**Trade-off aceito**: se os OSS da Etus não forem em Node/JS, o SDK precisará de portas (Python/Go/Ruby/etc) depois. Decisão revisitável.
+**Trade-off aceito**: se os OSS da ETUS não forem em Node/JS, o SDK precisará de portas (Python/Go/Ruby/etc) depois. Decisão revisitável.
 
-**Bloqueador conhecido**: validar com a equipe se faz sentido pra stack dos OSS da Etus.
+**Bloqueador conhecido**: validar com a equipe se faz sentido pra stack dos OSS da ETUS.
 
 ### 5. Pseudo-anonimização: hash + seed local, sem possibilidade de des-anonimizar
 
 `instance.id = SHA-256(seed || install_uuid || product_name)` onde `seed` é gerada uma vez por (instância, produto) e nunca sai do disco da instância.
 
-**Por quê**: mesmo num cenário de vazamento total do banco da Etus, não dá pra correlacionar IDs de volta a instâncias específicas sem acesso ao filesystem delas. Cada produto tem seed própria → mesma instância rodando 2 produtos da Etus aparece como 2 IDs não-correlacionáveis.
+**Por quê**: mesmo num cenário de vazamento total do banco da ETUS, não dá pra correlacionar IDs de volta a instâncias específicas sem acesso ao filesystem delas. Cada produto tem seed própria → mesma instância rodando 2 produtos da ETUS aparece como 2 IDs não-correlacionáveis.
 
 **Trade-off aceito**: não conseguimos detectar instâncias re-instaladas/migradas. É aceitável para o caso de uso.
 
@@ -79,6 +79,6 @@ Não usar PostHog/Plausible/Umami como backend. Construir os 4 componentes próp
 
 ## Revisitar quando
 
-- A equipe sinalizar que os OSS da Etus não são compatíveis com SDK em TS.
+- A equipe sinalizar que os OSS da ETUS não são compatíveis com SDK em TS.
 - Volume de eventos passar de ~100M/mês (revisar Postgres → ClickHouse).
 - LGPD/GDPR mudarem materialmente (improvável no curto prazo).

@@ -14,3 +14,9 @@ pages_build_output_dir = ".vercel/output/static"
 binding = "DB"
 database_name = "etus-telemetry"
 database_id = "f7895604-d27e-4a15-b321-f3e6911c75cf"
+
+# R2 público — necessário para o purge/reject/disable removerem o JSON
+# publicado (stats/v1/<slug>.json) na hora, sem esperar o aggregator.
+[[r2_buckets]]
+binding = "R2_PUBLIC"
+bucket_name = "etus-telemetry-public"

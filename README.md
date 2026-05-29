@@ -1,14 +1,14 @@
 # etus-open-telemetry
 
-Telemetria opt-in para os projetos open source da Etus.
+Telemetria opt-in para os projetos open source da ETUS.
 
 > ⚠️ **Não confundir com OpenTelemetry (CNCF).** Este projeto é sobre coletar métricas
-> agregadas de **adoção** dos OSS da Etus — não sobre tracing/logs/métricas internas
+> agregadas de **adoção** dos OSS da ETUS — não sobre tracing/logs/métricas internas
 > de aplicações.
 
 ## O que é
 
-Cada instância self-hosted de um OSS da Etus (ex: `etus-foo`, `etus-bar`) pode embutir
+Cada instância self-hosted de um OSS da ETUS (ex: `etus-foo`, `etus-bar`) pode embutir
 o SDK `@etus/telemetry-sdk`. Se o operador da instância der opt-in explícito, o SDK
 envia heartbeats diários **anônimos** com informações agregadas sobre o uso da instância:
 versão, SO, features ativas, etc. — **nunca** dados dos usuários finais daquela instância.

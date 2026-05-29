@@ -6,9 +6,9 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Etus Open Telemetry',
+  title: 'ETUS Open Telemetry',
   description:
-    'Opt-in telemetry for Etus open source projects — what we collect, why, and how to control it.',
+    'Opt-in telemetry for ETUS open source projects — what we collect, why, and how to control it.',
   icons: {
     icon: '/etus-logo.png',
     apple: '/etus-logo.png',
@@ -26,11 +26,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/etus-logo.png"
-                  alt="Etus"
+                  alt="ETUS"
                   className="h-8 w-8 rounded-lg shadow-sm"
                 />
                 <span className="font-semibold tracking-tight">
-                  etus-open-telemetry
+                  ETUS Open Telemetry
                 </span>
               </Link>
               <div className="flex items-center gap-5">

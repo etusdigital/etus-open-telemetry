@@ -7,7 +7,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│                Instância self-hosted de OSS da Etus                   │
+│                Instância self-hosted de OSS da ETUS                   │
 │                                                                     │
 │   App (etus-*) ──▶ @etus/telemetry-sdk                              │
 │                    • opt-in check                                   │
@@ -66,7 +66,7 @@ Sem mudança em relação ao desenho anterior (independente da stack do backend)
 - Heartbeat diário com jitter, retry exponencial, falha silenciosa.
 - POST para `${endpoint}/v1/events` com `Content-Type: application/json`. O endpoint vem de `ETUS_TELEMETRY_ENDPOINT` (ou `init({ endpoint })`) — **sem default**; sem endpoint o SDK não envia.
 
-⚠️ Se a stack dos OSS da Etus não for Node-friendly, esta decisão precisa ser revisitada (ADR-0001 decisão 4).
+⚠️ Se a stack dos OSS da ETUS não for Node-friendly, esta decisão precisa ser revisitada (ADR-0001 decisão 4).
 
 ### 2. Worker `ingestor` (produtor)
 
@@ -157,7 +157,7 @@ Retenção: eventos brutos 365 dias (job de DELETE no aggregator). Rollups indef
 
 - Next.js com Pages adapter.
 - Pages Functions (Workers) para queries em D1 via binding.
-- Auth: **Cloudflare Access** (recomendado — zero código de auth). Alternativa: NextAuth com SSO Etus.
+- Auth: **Cloudflare Access** (recomendado — zero código de auth). Alternativa: NextAuth com SSO ETUS.
 - Views MVP:
   - Active instances por produto
   - Distribuição por versão / OS / deployment / database engine
@@ -238,7 +238,7 @@ Sem Docker. Sem Postgres. Sem fila externa.
 - **Domínio**: `otw.etus.dev` para o ingestor/worker (definido). Domínio do site público (Pages) ainda a definir.
 - **Auth do dashboard**: Cloudflare Access vs NextAuth. Cloudflare Access é mais simples; depende do plano da conta.
 - **Framework do site público**: Next.js (mesmo do dashboard) ou Astro? Próxima sessão.
-- **Stack do SDK ainda condicionada**: se OSS da Etus não for Node-friendly, ADR-0001 #4 revisitado.
+- **Stack do SDK ainda condicionada**: se OSS da ETUS não for Node-friendly, ADR-0001 #4 revisitado.
 
 ## Próximo doc
 

@@ -130,6 +130,28 @@ describe('HeartbeatEvent', () => {
     });
     expect(result.success).toBe(false);
   });
+
+  it('accepts valid product slugs (ADR-0005)', () => {
+    for (const name of ['etus-foo', 'a1', 'etus-open-telemetry']) {
+      const result = HeartbeatEvent.safeParse({
+        ...baseEnvelope,
+        event: 'instance.heartbeat',
+        product: { name, version: '1.2.3' },
+      });
+      expect(result.success, name).toBe(true);
+    }
+  });
+
+  it('rejects malformed product slugs (ADR-0005)', () => {
+    for (const name of ['My Product', 'Etus', 'etus_foo', 'a.b', '1foo', 'x', '']) {
+      const result = HeartbeatEvent.safeParse({
+        ...baseEnvelope,
+        event: 'instance.heartbeat',
+        product: { name, version: '1.2.3' },
+      });
+      expect(result.success, name).toBe(false);
+    }
+  });
 });
 
 describe('LifecycleEvent', () => {

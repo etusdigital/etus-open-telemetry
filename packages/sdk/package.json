@@ -2,7 +2,7 @@
   "name": "@etus/telemetry-sdk",
   "version": "0.1.1",
   "private": false,
-  "description": "Embeddable SDK for Etus OSS web apps to send opt-in anonymous telemetry.",
+  "description": "Embeddable SDK for ETUS OSS web apps to send opt-in anonymous telemetry.",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",

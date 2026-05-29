@@ -108,9 +108,28 @@ export async function persistBatch(
     );
   });
 
+  // Registro de produtos (ADR-0005): garante uma linha 'pending' por produto
+  // desconhecido. INSERT OR IGNORE preserva produtos já aprovados/etc. Uma
+  // linha por produto distinto no batch, com o menor received_at como first_seen.
+  const productFirstSeen = new Map<string, number>();
+  for (const msg of batch.messages) {
+    const slug = msg.body.event.product.name;
+    const ts = msg.body.received_at;
+    const cur = productFirstSeen.get(slug);
+    if (cur === undefined || ts < cur) productFirstSeen.set(slug, ts);
+  }
+  const productStmt = env.DB.prepare(
+    `INSERT OR IGNORE INTO products
+       (slug, status, first_seen_at, status_changed_at, status_changed_by)
+     VALUES (?, 'pending', ?, ?, 'auto')`,
+  );
+  const productStmts = [...productFirstSeen].map(([slug, ts]) =>
+    productStmt.bind(slug, ts, ts),
+  );
+
   try {
     // Mesma chamada batch — D1 executa em ordem, no mesmo connection.
-    await env.DB.batch([...eventStmts, ...instanceStmts]);
+    await env.DB.batch([...productStmts, ...eventStmts, ...instanceStmts]);
     batch.ackAll();
   } catch (err) {
     // Falha de DB → retentar batch inteiro. Após max_retries vai pra DLQ.

@@ -2,7 +2,7 @@
   "name": "@etus/telemetry-dashboard",
   "version": "0.0.0",
   "private": true,
-  "description": "Internal dashboard on Cloudflare Pages — adoption metrics for Etus OSS, queries D1 via getRequestContext.",
+  "description": "Internal dashboard on Cloudflare Pages — adoption metrics for ETUS OSS, queries D1 via getRequestContext.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

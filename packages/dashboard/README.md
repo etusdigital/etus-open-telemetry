@@ -1,6 +1,6 @@
 # @etus/telemetry-dashboard
 
-Painel **interno** (Next.js 15 App Router em Cloudflare Pages) com métricas de adoção dos projetos OSS da Etus. Queries em D1 via Server Components com `getRequestContext()`.
+Painel **interno** (Next.js 15 App Router em Cloudflare Pages) com métricas de adoção dos projetos OSS da ETUS. Queries em D1 via Server Components com `getRequestContext()`.
 
 Auth (produção): **Cloudflare Access**. Local: sem auth.
 

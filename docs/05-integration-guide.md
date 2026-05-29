@@ -1,6 +1,6 @@
-# Guia de Integração — Para times de produto da Etus
+# Guia de Integração — Para times de produto da ETUS
 
-Documento **interno**, voltado para devs que mantêm os OSS web da Etus (`etus-foo`, `etus-bar`, etc.) e querem (ou precisam) integrar o `@etus/telemetry-sdk`.
+Documento **interno**, voltado para devs que mantêm os OSS web da ETUS (`etus-foo`, `etus-bar`, etc.) e querem (ou precisam) integrar o `@etus/telemetry-sdk`.
 
 > **Quem é a audiência aqui:** você, dev de produto. **Quem NÃO é:** o operador que vai rodar o seu produto. Para esse, veja [`04-privacy-policy.md`](04-privacy-policy.md).
 
@@ -144,7 +144,7 @@ Valores aceitos:
 - **Desligar**: `ETUS_TELEMETRY` ∈ `{ disabled, 0, false }`
 - **DO_NOT_TRACK**: `{ 1, true }` desliga
 
-> **Endpoint é obrigatório e não tem default.** Mesmo com consentimento, o SDK só envia se um endpoint estiver resolvido — de `init({ endpoint })` ou da env var **`ETUS_TELEMETRY_ENDPOINT`** (não há valor embutido). Sem endpoint, `init()` retorna `{ enabled: false, reason: 'no_endpoint' }` e `heartbeat`/`lifecycle` viram no-op. Em produção, o operador (ou o deploy do seu produto) define `ETUS_TELEMETRY_ENDPOINT` apontando para o ingestor da Etus.
+> **Endpoint é obrigatório e não tem default.** Mesmo com consentimento, o SDK só envia se um endpoint estiver resolvido — de `init({ endpoint })` ou da env var **`ETUS_TELEMETRY_ENDPOINT`** (não há valor embutido). Sem endpoint, `init()` retorna `{ enabled: false, reason: 'no_endpoint' }` e `heartbeat`/`lifecycle` viram no-op. Em produção, o operador (ou o deploy do seu produto) define `ETUS_TELEMETRY_ENDPOINT` apontando para o ingestor da ETUS.
 
 ### 3.2 Os 3 mecanismos de ativação
 
@@ -205,7 +205,7 @@ Se o seu produto tem onboarding ou wizard inicial, **inclua um passo dedicado**.
 
 > 📊 **Compartilhar dados de uso anônimos?**
 >
-> A Etus coleta dados agregados (versão, sistema operacional, número de usuários ativos da sua instância) — **nunca** dados sobre as pessoas que usam o seu sistema. É opt-in: você pode habilitar agora, depois, ou nunca.
+> A ETUS coleta dados agregados (versão, sistema operacional, número de usuários ativos da sua instância) — **nunca** dados sobre as pessoas que usam o seu sistema. É opt-in: você pode habilitar agora, depois, ou nunca.
 >
 > [ Saiba mais ] (link para a política pública)
 >
@@ -444,7 +444,7 @@ it('does not call telemetry endpoint in CI', async () => {
 
 ## 7. Documentação que você deve adicionar no seu produto
 
-Cada OSS da Etus que integra telemetria precisa ter:
+Cada OSS da ETUS que integra telemetria precisa ter:
 
 ### 7.1 Seção `## Telemetry` no README do produto
 
@@ -913,4 +913,4 @@ Issues e milestones do repo `etus-open-telemetry`. Mudanças que afetam você (d
 
 - Issues sobre o SDK ou integração: repo `etus-open-telemetry`, label `integration`
 - Mudança de whitelist de features: repo `etus-open-telemetry`, label `schema-change`
-- Política / compliance: time de privacidade da Etus
+- Política / compliance: time de privacidade da ETUS

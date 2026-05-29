@@ -37,7 +37,7 @@ Todo payload, qualquer que seja o evento, tem este envelope:
   "event_id": "uuid-v4",            // dedup no ingestor
   "timestamp": "2026-05-27T14:32:00Z", // ISO 8601 UTC, gerado pelo cliente
   "product": {
-    "name": "etus-foo",             // enum — quais OSS da Etus são reconhecidos
+    "name": "etus-foo",             // enum — quais OSS da ETUS são reconhecidos
     "version": "2.4.1"              // semver da release instalada
   },
   "instance": {
@@ -153,9 +153,9 @@ input    = seed || install_uuid || product.name
 id       = SHA-256(input) → primeiros 16 bytes em base32
 ```
 
-A Etus **nunca** vê a seed. Mesmo se o banco da Etus vazar, não dá pra correlacionar o `instance.id` de volta a uma instância específica sem acesso ao disco da instância.
+A ETUS **nunca** vê a seed. Mesmo se o banco da ETUS vazar, não dá pra correlacionar o `instance.id` de volta a uma instância específica sem acesso ao disco da instância.
 
-Cada produto tem seed própria → mesma instância rodando dois produtos da Etus aparece como dois IDs não-correlacionáveis.
+Cada produto tem seed própria → mesma instância rodando dois produtos da ETUS aparece como dois IDs não-correlacionáveis.
 
 ---
 
@@ -186,6 +186,6 @@ Coisas que deixei propositalmente fora do MVP para discutir:
 - Eventos de "feature usado" granular (qual % das instâncias clicou em X) — pode virar `instance.feature_used` no v1.1
 - Coleta de erros agregados (sem stack trace, só "houve N erros" por categoria)
 - Métricas de performance (p50/p95 de tempo de resposta) — útil mas pode ser overkill no MVP
-- Detecção de fork (instância rodando código modificado da Etus) — relevante? só Etus oficial?
+- Detecção de fork (instância rodando código modificado da ETUS) — relevante? só ETUS oficial?
 
 Próximo doc: `03-architecture.md` — estrutura do monorepo, stack técnica de cada componente, fluxo end-to-end.

@@ -12,6 +12,7 @@ export async function runAggregator(env: Env): Promise<void> {
   await sweepInactiveInstances(env);
   await materializeRollups(env, day, startMs, endMs);
   await publishPublicStats(env, day);
+  await reconcilePublicStats(env);
   await cleanupOldEvents(env);
 }
 
@@ -91,10 +92,14 @@ async function materializeRollups(
 }
 
 async function publishPublicStats(env: Env, day: string): Promise<void> {
-  // Para cada produto com dados no dia, gera um JSON agregado dos últimos 30/90/365 dias
-  // e publica em R2 — estilo Homebrew.
+  // Para cada produto APROVADO com dados no dia, gera um JSON agregado dos
+  // últimos 30/90/365 dias e publica em R2 — estilo Homebrew.
+  // Produtos pending/disabled/rejected nunca são publicados (ADR-0005).
   const products = await env.DB.prepare(
-    'SELECT DISTINCT product_name FROM rollup_daily WHERE day = ?',
+    `SELECT DISTINCT r.product_name AS product_name
+     FROM rollup_daily r
+     JOIN products p ON p.slug = r.product_name
+     WHERE r.day = ? AND p.status = 'approved'`,
   )
     .bind(day)
     .all<{ product_name: string }>();
@@ -108,6 +113,25 @@ async function publishPublicStats(env: Env, day: string): Promise<void> {
         httpMetadata: { contentType: 'application/json' },
       },
     );
+  }
+}
+
+// Reconcilia o R2 com o registro: remove o JSON público de qualquer produto
+// que não esteja mais 'approved' (disabled/rejected/purgado/sem linha). É a
+// rede de segurança — o purge imediato acontece via dashboard (ADR-0005).
+async function reconcilePublicStats(env: Env): Promise<void> {
+  const listing = await env.R2_PUBLIC.list({ prefix: 'stats/v1/' });
+  for (const o of listing.objects) {
+    if (!o.key.endsWith('.json')) continue;
+    const slug = o.key.replace(/^stats\/v1\//, '').replace(/\.json$/, '');
+    const row = await env.DB.prepare(
+      'SELECT status FROM products WHERE slug = ?',
+    )
+      .bind(slug)
+      .first<{ status: string }>();
+    if (!row || row.status !== 'approved') {
+      await env.R2_PUBLIC.delete(o.key);
+    }
   }
 }
 

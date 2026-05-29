@@ -32,6 +32,14 @@ app.post('/v1/events', async (c) => {
     return c.json({ error: 'schema_version_unsupported' }, 400);
   }
 
+  // Gate do registro de produtos (ADR-0005): produto 'rejected' é descartado
+  // silenciosamente (202 sem enfileirar) — discreto contra typo/spam recorrente.
+  // Demais status (pending/approved/disabled/desconhecido) seguem normais.
+  const status = await getProductStatus(c.env, parsed.data.product.name);
+  if (status === 'rejected') {
+    return c.json({ ok: true }, 202);
+  }
+
   await c.env.QUEUE.send({
     event: parsed.data,
     received_at: Date.now(),
@@ -39,6 +47,30 @@ app.post('/v1/events', async (c) => {
 
   return c.json({ ok: true }, 202);
 });
+
+// Cache curto do status por slug. Isolates do Worker são efêmeros — é
+// best-effort, evita um SELECT por request na maioria dos casos.
+const STATUS_TTL_MS = 60_000;
+const statusCache = new Map<string, { status: string | null; exp: number }>();
+
+async function getProductStatus(
+  env: Env,
+  slug: string,
+): Promise<string | null> {
+  const now = Date.now();
+  const hit = statusCache.get(slug);
+  if (hit && hit.exp > now) return hit.status;
+
+  const row = await env.DB.prepare('SELECT status FROM products WHERE slug = ?')
+    .bind(slug)
+    .first<{ status: string }>();
+  const status = row?.status ?? null;
+  statusCache.set(slug, { status, exp: now + STATUS_TTL_MS });
+  return status;
+}
+
+// Exportado para testes (permite limpar o cache entre casos).
+export const __test__ = { statusCache };
 
 // Compatível com semver simples X.Y.Z (sem pre-release no MVP).
 // Aceita mesmo MAJOR, igual ou superior em MINOR.PATCH.

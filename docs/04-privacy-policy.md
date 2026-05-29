@@ -1,11 +1,11 @@
-# Política de Privacidade — Etus Open Telemetry
+# Política de Privacidade — ETUS Open Telemetry
 
 - **Versão**: 1.0.0
 - **Vigência**: a partir de 2026-05-27
 - **Próxima revisão**: ao mudar o schema (ADR-0001 prevê bump em qualquer alteração de campo coletado)
 - **Endpoint de coleta**: `https://otw.etus.dev/v1/events`
 
-> Este documento é o **contrato público** com operadores que rodam software open source da Etus. Ele espelha 1:1 o schema técnico em [`02-event-schema.md`](02-event-schema.md). Toda mudança de campo coletado é **breaking change**, exige bump de `schema_version` e atualização desta política.
+> Este documento é o **contrato público** com operadores que rodam software open source da ETUS. Ele espelha 1:1 o schema técnico em [`02-event-schema.md`](02-event-schema.md). Toda mudança de campo coletado é **breaking change**, exige bump de `schema_version` e atualização desta política.
 
 > **PT-BR primeiro. English version below.** Both versions are equally authoritative.
 
@@ -15,15 +15,15 @@
 
 ### TL;DR
 
-A telemetria do Etus Open Telemetry está **desligada por padrão**. Se você ativar opt-in explícito, sua instância envia um pequeno heartbeat anônimo uma vez por dia, contendo apenas dados **sobre a instância** (versão do produto, sistema operacional, número de usuários ativos, etc.) — **nunca** dados sobre as pessoas que usam a sua instância. Você pode inspecionar, desativar e pedir exclusão a qualquer momento.
+A telemetria do ETUS Open Telemetry está **desligada por padrão**. Se você ativar opt-in explícito, sua instância envia um pequeno heartbeat anônimo uma vez por dia, contendo apenas dados **sobre a instância** (versão do produto, sistema operacional, número de usuários ativos, etc.) — **nunca** dados sobre as pessoas que usam a sua instância. Você pode inspecionar, desativar e pedir exclusão a qualquer momento.
 
 ### 1. Quem somos
 
-A telemetria é operada por **Etus**, identificada como controladora dos dados nos termos da LGPD (Lei nº 13.709/2018). Contato: `privacy@etus.com.br` (placeholder — confirmar antes de produção).
+A telemetria é operada por **ETUS**, identificada como controladora dos dados nos termos da LGPD (Lei nº 13.709/2018). Contato: `privacy@etus.com.br` (placeholder — confirmar antes de produção).
 
 ### 2. O que coletamos
 
-A coleta acontece via SDK embarcado nos OSS da Etus que você hospeda. Há **dois tipos** de evento:
+A coleta acontece via SDK embarcado nos OSS da ETUS que você hospeda. Há **dois tipos** de evento:
 
 #### 2.1 `instance.heartbeat` — uma vez a cada 24h
 
@@ -32,7 +32,7 @@ Campo | Tipo | Descrição
 `schema_version` | semver | Versão do schema desta política
 `event_id` | UUID v4 | Identificador único do evento (dedup)
 `timestamp` | ISO 8601 UTC | Quando o evento foi emitido
-`product.name` | string (enum) | Qual OSS da Etus emitiu (ex: `etus-foo`)
+`product.name` | string (enum) | Qual OSS da ETUS emitiu (ex: `etus-foo`)
 `product.version` | semver | Versão da instalação
 `instance.id` | hash | Identificador opaco da instância (ver §4)
 `instance.first_seen_at` | ISO 8601 UTC | Quando o opt-in foi ativado nessa instância
@@ -88,8 +88,8 @@ instance.id  = SHA-256(seed || install_uuid || product_name) → primeiros 16 by
 
 Conseqüências:
 
-- A **Etus nunca vê a seed**. Mesmo em caso de vazamento total do banco da Etus, **não é possível** correlacionar o `instance.id` de volta à sua instância sem acesso ao disco da instância.
-- Cada produto tem **sua própria seed**. Se você roda dois OSS da Etus na mesma máquina, eles aparecem como dois IDs **não-correlacionáveis** no banco da Etus.
+- A **ETUS nunca vê a seed**. Mesmo em caso de vazamento total do banco da ETUS, **não é possível** correlacionar o `instance.id` de volta à sua instância sem acesso ao disco da instância.
+- Cada produto tem **sua própria seed**. Se você roda dois OSS da ETUS na mesma máquina, eles aparecem como dois IDs **não-correlacionáveis** no banco da ETUS.
 - O arquivo de estado fica em `$XDG_CONFIG_HOME/etus-telemetry/<product>.json` (ou `~/.config/etus-telemetry/<product>.json`), com permissão `0600`.
 
 ### 5. Por que coletamos
@@ -98,7 +98,7 @@ Conseqüências:
 - **Manutenção responsável**: saber quem ainda usa uma versão antes de descontinuá-la.
 - **Métricas públicas agregadas** (estilo Homebrew) que a comunidade pode consultar.
 
-A Etus **não vende** dados de telemetria. Nunca repassa a terceiros (exceto Cloudflare, processador de dados conforme §8).
+A ETUS **não vende** dados de telemetria. Nunca repassa a terceiros (exceto Cloudflare, processador de dados conforme §8).
 
 ### 6. Como **ativar** (opt-in)
 
@@ -162,7 +162,7 @@ telemetry.init({ product: '...', version: '...', optedIn: false });
 <seu-app> telemetry disable
 ```
 
-A Etus **também não coleta em ambientes de CI** — qualquer um dos sinais `CI=true`, `GITHUB_ACTIONS`, `GITLAB_CI`, `BUILDKITE`, `CIRCLECI`, `JENKINS_URL`, `CONTINUOUS_INTEGRATION` desliga automaticamente.
+A ETUS **também não coleta em ambientes de CI** — qualquer um dos sinais `CI=true`, `GITHUB_ACTIONS`, `GITLAB_CI`, `BUILDKITE`, `CIRCLECI`, `JENKINS_URL`, `CONTINUOUS_INTEGRATION` desliga automaticamente.
 
 ### 10. Retenção
 
@@ -172,11 +172,11 @@ A Etus **também não coleta em ambientes de CI** — qualquer um dos sinais `CI
 
 ### 11. Como pedir **exclusão** (Direito do titular — LGPD art. 18)
 
-Como o `instance.id` é opaco para a Etus, o pedido de exclusão precisa ser iniciado por você:
+Como o `instance.id` é opaco para a ETUS, o pedido de exclusão precisa ser iniciado por você:
 
 1. Localize seu `instance.id` em `~/.config/etus-telemetry/<product>.json` — campo derivado da seed (ou rode `telemetry.inspect()` para obtê-lo).
 2. Envie e-mail para `privacy@etus.com.br` com o assunto `[etus-telemetry] DSR — delete` e o `instance.id` no corpo.
-3. Apagamos todos os eventos brutos com esse `instance.id` em até **15 dias úteis**.
+3. Nossa equipe executa a exclusão pelo painel interno (*purge* por instância), removendo **todos os eventos brutos e o registro de estado** (`instances`) desse `instance.id` em até **15 dias úteis**. A ação fica registrada em log de auditoria interno.
 4. **Agregações já materializadas não são retroativamente recalculadas** — elas são contagens, não armazenam o ID.
 
 Você também pode parar de enviar dados novos a qualquer momento via §9.
@@ -205,15 +205,15 @@ Toda mudança que afete campos coletados:
 
 ### TL;DR
 
-Etus Open Telemetry is **off by default**. If you explicitly opt in, your instance sends a small anonymous heartbeat once a day with data **about the instance** (product version, OS, active user count, etc.) — **never** data about the people using your instance. You can inspect, disable and request deletion at any time.
+ETUS Open Telemetry is **off by default**. If you explicitly opt in, your instance sends a small anonymous heartbeat once a day with data **about the instance** (product version, OS, active user count, etc.) — **never** data about the people using your instance. You can inspect, disable and request deletion at any time.
 
 ### 1. Who we are
 
-Telemetry is operated by **Etus**, identified as the data controller under GDPR. Contact: `privacy@etus.com.br` (placeholder — to confirm before production).
+Telemetry is operated by **ETUS**, identified as the data controller under GDPR. Contact: `privacy@etus.com.br` (placeholder — to confirm before production).
 
 ### 2. What we collect
 
-Collection happens through an SDK embedded in the Etus OSS products you host. There are **two event types**:
+Collection happens through an SDK embedded in the ETUS OSS products you host. There are **two event types**:
 
 #### 2.1 `instance.heartbeat` — once every 24h
 
@@ -222,7 +222,7 @@ Field | Type | Description
 `schema_version` | semver | Version of the schema covered by this policy
 `event_id` | UUID v4 | Unique event identifier (dedup)
 `timestamp` | ISO 8601 UTC | When emitted
-`product.name` | string (enum) | Which Etus OSS emitted it (e.g. `etus-foo`)
+`product.name` | string (enum) | Which ETUS OSS emitted it (e.g. `etus-foo`)
 `product.version` | semver | Installation version
 `instance.id` | hash | Opaque instance identifier (see §4)
 `instance.first_seen_at` | ISO 8601 UTC | When opt-in was enabled on this instance
@@ -278,8 +278,8 @@ instance.id  = SHA-256(seed || install_uuid || product_name) → first 16 bytes 
 
 Implications:
 
-- **Etus never sees the seed.** Even in case of a total breach of our database, the `instance.id` **cannot** be correlated back to your specific instance without disk access to the instance.
-- Each product has **its own seed**. If you run two Etus OSS products on the same machine, they appear as two **non-correlatable** IDs in our database.
+- **ETUS never sees the seed.** Even in case of a total breach of our database, the `instance.id` **cannot** be correlated back to your specific instance without disk access to the instance.
+- Each product has **its own seed**. If you run two ETUS OSS products on the same machine, they appear as two **non-correlatable** IDs in our database.
 - The state file lives at `$XDG_CONFIG_HOME/etus-telemetry/<product>.json` (or `~/.config/etus-telemetry/<product>.json`), with permissions `0600`.
 
 ### 5. Why we collect
@@ -288,7 +288,7 @@ Implications:
 - **Responsible maintenance**: knowing who still uses a version before deprecating it.
 - **Public aggregated metrics** (Homebrew-style) the community can consult.
 
-Etus does **not sell** telemetry data. We do not share with third parties, except Cloudflare as data processor per §8.
+ETUS does **not sell** telemetry data. We do not share with third parties, except Cloudflare as data processor per §8.
 
 ### 6. How to **enable** (opt-in)
 
@@ -352,7 +352,7 @@ telemetry.init({ product: '...', version: '...', optedIn: false });
 <your-app> telemetry disable
 ```
 
-Etus **also does not collect in CI environments** — any of `CI=true`, `GITHUB_ACTIONS`, `GITLAB_CI`, `BUILDKITE`, `CIRCLECI`, `JENKINS_URL`, `CONTINUOUS_INTEGRATION` automatically disables telemetry.
+ETUS **also does not collect in CI environments** — any of `CI=true`, `GITHUB_ACTIONS`, `GITLAB_CI`, `BUILDKITE`, `CIRCLECI`, `JENKINS_URL`, `CONTINUOUS_INTEGRATION` automatically disables telemetry.
 
 ### 10. Retention
 
@@ -362,11 +362,11 @@ Etus **also does not collect in CI environments** — any of `CI=true`, `GITHUB_
 
 ### 11. How to request **deletion** (data subject right — GDPR art. 17)
 
-Since `instance.id` is opaque to Etus, the deletion request needs to be initiated by you:
+Since `instance.id` is opaque to ETUS, the deletion request needs to be initiated by you:
 
 1. Find your `instance.id` in `~/.config/etus-telemetry/<product>.json` — derived from the seed (or run `telemetry.inspect()` to get it).
 2. Email `privacy@etus.com.br` with the subject `[etus-telemetry] DSR — delete` and the `instance.id` in the body.
-3. We will delete all raw events with that `instance.id` within **15 business days**.
+3. Our team runs the deletion from the internal dashboard (per-instance *purge*), removing **all raw events and the state record** (`instances`) for that `instance.id` within **15 business days**. The action is recorded in an internal audit log.
 4. **Already-materialized aggregations are not retroactively recomputed** — they are counts, they do not store the ID.
 
 You can also stop sending new data at any time via §9.

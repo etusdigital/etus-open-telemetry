@@ -5,8 +5,8 @@ import { ThemeProvider } from '@/components/ThemeProvider';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Etus Open Telemetry — Dashboard',
-  description: 'Adoption metrics for Etus open source projects',
+  title: 'ETUS Open Telemetry — Dashboard',
+  description: 'Adoption metrics for ETUS open source projects',
   icons: {
     icon: '/etus-logo.png',
     apple: '/etus-logo.png',

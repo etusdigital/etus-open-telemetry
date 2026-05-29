@@ -1,6 +1,6 @@
 # API Pública de Estatísticas
 
-Endpoint HTTP legível por máquina com os agregados de adoção dos OSS da Etus — estilo Homebrew (`formulae.brew.sh/api/...`). Dados **públicos**, sem autenticação, CORS aberto, cacheáveis.
+Endpoint HTTP legível por máquina com os agregados de adoção dos OSS da ETUS — estilo Homebrew (`formulae.brew.sh/api/...`). Dados **públicos**, sem autenticação, CORS aberto, cacheáveis.
 
 > Serve exatamente os mesmos agregados que o aggregator publica em R2 diariamente. **Nunca** expõe linhas brutas, `instance.id`, nem qualquer dado individual de instância — só contagens por dimensão.
 

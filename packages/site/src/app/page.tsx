@@ -7,12 +7,12 @@ export default function HomePage() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/etus-logo.png"
-          alt="Etus"
+          alt="ETUS"
           className="h-14 w-14 rounded-xl shadow-sm"
         />
         <div>
           <h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
-            Etus Open Telemetry
+            ETUS Open Telemetry
           </h1>
           <p className="text-sm text-slate-500">opt-in · anônima · self-hosted</p>
         </div>
@@ -20,7 +20,7 @@ export default function HomePage() {
 
       <p className="mt-6 max-w-2xl text-lg text-slate-700 dark:text-slate-300">
         Telemetria <strong>opt-in</strong> e <strong>anônima</strong> dos
-        projetos open source da Etus. Coletamos só sobre a instância (versão,
+        projetos open source da ETUS. Coletamos só sobre a instância (versão,
         sistema, features ativas) — nunca sobre quem a usa.
       </p>
 

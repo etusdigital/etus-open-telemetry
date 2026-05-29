@@ -72,7 +72,7 @@ CREATE INDEX events_instance     ON events(instance_id);
 
 ### Dashboard interno
 
-Next.js em Pages. Queries em D1 via Worker function (Pages Functions). Auth: SSO Etus via Cloudflare Access (preferível) ou NextAuth.
+Next.js em Pages. Queries em D1 via Worker function (Pages Functions). Auth: SSO ETUS via Cloudflare Access (preferível) ou NextAuth.
 
 **Alternativa considerada**: Astro para o público + SvelteKit para o interno. Rejeitado por adicionar uma stack de frontend a mais sem ganho claro no MVP.
 

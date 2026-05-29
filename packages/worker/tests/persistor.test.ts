@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { TelemetryEvent } from '@etus/telemetry-schema';
-import { __test__ } from '../src/persistor.js';
+import { __test__, persistBatch } from '../src/persistor.js';
 
 const { buildRow } = __test__;
 
@@ -91,5 +91,52 @@ describe('buildRow', () => {
     const a = buildRow({ event, received_at: 1 });
     const b = buildRow({ event, received_at: 1 });
     expect(a).toEqual(b);
+  });
+});
+
+describe('persistBatch product registry (ADR-0005)', () => {
+  // Mock de D1: prepare(sql) carrega o sql; bind(...args) preserva ambos;
+  // batch(stmts) captura os statements pra inspeção.
+  function makeEnv() {
+    const captured: Array<{ sql: string; args: unknown[] }> = [];
+    const env = {
+      DB: {
+        prepare: (sql: string) => ({
+          bind: (...args: unknown[]) => ({ sql, args }),
+        }),
+        batch: async (stmts: Array<{ sql: string; args: unknown[] }>) => {
+          captured.push(...stmts);
+          return [];
+        },
+      },
+    } as unknown as Parameters<typeof persistBatch>[1];
+    return { env, captured };
+  }
+
+  function msg(slug: string, received_at: number) {
+    return {
+      body: {
+        event: { ...baseEnvelope, event: 'instance.heartbeat', product: { name: slug, version: '1.2.3' } },
+        received_at,
+      },
+    };
+  }
+
+  it('upserts one pending product per distinct slug, with earliest first_seen', async () => {
+    const { env, captured } = makeEnv();
+    const batch = {
+      messages: [msg('etus-foo', 100), msg('etus-foo', 50), msg('etus-bar', 200)],
+      ackAll: () => {},
+      retryAll: () => {},
+    } as unknown as Parameters<typeof persistBatch>[0];
+
+    await persistBatch(batch, env);
+
+    const productStmts = captured.filter((s) => s.sql.includes('INTO products'));
+    expect(productStmts).toHaveLength(2); // foo + bar, deduplicado
+    expect(productStmts.every((s) => s.sql.includes("'pending'"))).toBe(true);
+
+    const foo = productStmts.find((s) => s.args[0] === 'etus-foo');
+    expect(foo?.args[1]).toBe(50); // menor received_at vira first_seen_at
   });
 });
